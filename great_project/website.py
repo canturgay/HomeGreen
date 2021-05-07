@@ -1,16 +1,46 @@
-from flask import Flask
-from flask import render_template
+import os
+import logging
+import datetime
+
+from flask import Flask, request, Response, render_template, jsonify, redirect
+from database_helpers import connect
+
 
 app = Flask(__name__)
-
+from database_helpers import connect
+logger = logging.getLogger()
 # configure Flask using environment variables
 app.config.from_pyfile("config.py")
 
 
 @app.route('/')
-def index():
-    return render_template('index.html', page_title="My great website")
+
+def home():
+    """returns homepage"""
+    return render_template('index.html', page_title="HomeGreen", sequence="First", reduction="100")
 
 
-if __name__ == "__main__":
-    app.run(host="localhost", port=8080, debug=True)
+@app.route('/api/checkuser', methods=['POST'])
+
+def checkUser():
+    data = request.form["email"]
+
+    query = f"SELECT EXISTS(SELECT * FROM Users WHERE email=\"{data}\");"
+
+    try:
+        exist = connect(query)
+        return addNewUser(data)
+    except:
+        return "User already exists"
+
+
+
+@app.route('/api/addnewuser', methods=["POST"])
+def addNewUser(data):
+    insert = f"INSERT INTO Users (email) VALUES (\"{data}\");"
+
+    newUser = connect(insert)
+
+    return "NEW USER ADDED"
+
+

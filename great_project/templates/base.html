@@ -11,14 +11,23 @@
 <body>
 
     <header>
-        <div class="banner">
-            <h1> ABU ZITTIN MI? </h1>
+    <div class="navbar">    
+        <div id="logo">
+            <img src="{{ url_for('static', filename='img/logo-placeholder.png') }}">
         </div>
+        <div id="menu">
+            <a  href="#explore">Explore</a>
+            <a  href="#join">Join</a>
+            <a  href="#follow">Follow</a>
+        </div>
+    </div>    
+    <div id="line"></div>
     </header>
     <main>
         {% block content%} {% endblock %}
     </main>
     <footer>
-        <h3> <em> By Turgut URUGAY </em></h3>
+            <h3> <em> By Turugut URUGUAY </em></h3>
     </footer>
 </body>
+

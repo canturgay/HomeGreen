@@ -1,8 +1,58 @@
 {% extends "base.html" %}
-
 {% block content %}
-    <p> What an amazing website.</p>  
+<div class="first-slate">
+    <img class="decoration" id="right-bottom" src="{{ url_for('static', filename='img/clipart-leaf-fern-15 1.png') }}">
+    <img class="decoration" id="left-side" src="{{ url_for('static', filename='img/doublefern.png') }}">
+    <h1>NO MORE DEAD PLANTS</h1>
+    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Nisl pretium fusce id velit ut tortor. Pharetra massa massa ultricies mi quis hendrerit dolor
+        magna eget. </h2>
+</div>
 
-    <button onclick="warnUser()"> Push Me. I Dare You. </button>  
+<div class="second-slate">
+    <img class="decoration" id="left-side" src="{{ url_for('static', filename='img/monstera_leaf_oneline 1.png') }}">
+    <img class="decoration" id="right-bottom" src="{{ url_for('static', filename='img/fat cactus 1.png') }}">
+    <h1>ONE APP <br> TO GROW THEM ALL</h1>
+    <h2 id="top-left-h2">Analyze Conditions to choose <br> the Right Plant</h2>
+    <h3 id="top-left-h3">Enim sit amet venenatis urna cursus eget nunc. Mauris commodo quis imperdiet massa tincidunt
+        nunc pulvinar. Aenean vel elit scelerisque mauris pellentesque pulvinar.
+        Pellentesque habitant morbi tristique senectus et. </h3>
+    <h2 id="top-right-h2">Analyze Conditions to choose <br> the Right Plant</h2>
+    <h3 id="top-right-h3">Enim sit amet venenatis urna cursus eget nunc. Mauris commodo quis imperdiet massa tincidunt
+        nunc pulvinar. Aenean vel elit scelerisque mauris pellentesque pulvinar.
+        Pellentesque habitant morbi tristique senectus et. </h3>
+    <h2 id="bottom-left-h2">Analyze Conditions to choose <br> the Right Plant</h2>
+    <h3 id="bottom-left-h3">Enim sit amet venenatis urna cursus eget nunc. Mauris commodo quis imperdiet massa tincidunt
+        nunc pulvinar. Aenean vel elit scelerisque mauris pellentesque pulvinar.
+        Pellentesque habitant morbi tristique senectus et. </h3>
+    <h2 id="bottom-right-h2">Analyze Conditions to choose <br> the Right Plant</h2>
+    <h3 id="bottom-right-h3">Enim sit amet venenatis urna cursus eget nunc. Mauris commodo quis imperdiet massa
+        tincidunt nunc pulvinar. Aenean vel elit scelerisque mauris pellentesque pulvinar.
+        Pellentesque habitant morbi tristique senectus et. </h3>
+</div>
 
-{% endblock %}  
+<div class="third-slate">
+    <img class="decoration" id="right" src="{{ url_for('static', filename='img/ferns right.png') }}">
+    <img class="decoration" id="left" src="{{ url_for('static', filename='img/ferns left.png') }}">
+    <img class="decoration" id="bottom" src="{{ url_for('static', filename='img/roots.png') }}">
+    <h3 id="top">For now leave your contact to be notified on launch <br> and follow us on Instagram </h3>
+    <h3 id="down"> You will be our {{ sequence }} member if you join us now  
+        for this you'll get %{{ reduction  }} reduction when we launch!! <br> 
+        Next 19 members will also get reductions according to order.
+        so dont forget to tell your friends
+        </h3>
+    <h2 id="first">HomeGreen <br> will be launched very</h2>
+    <h1><strong>SOON</strong></h1>
+    <div class="form">
+        <form form action="{{ url_for('checkUser') }}" method="post">
+            <label for="email">Email:</label>
+            <input type="text" name="email"> <input type="submit" value="Submit"> <br>
+            <input type="checkbox" id="consentnotify" name="consentnotify" value="newsletter">
+            <label for="vehicle1"> consent to get notified on launch</label><br>
+            <input type="checkbox" id="newsletter" name="newsletter" value="newsletter">
+            <label for="vehicle2"> recieve awesome bi-weekly newsletter</label><br>
+
+        </form>
+    </div>
+
+    {% endblock %}
