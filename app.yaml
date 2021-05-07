@@ -7,4 +7,8 @@ handlers:
   static_dir: static
 
 - url: /.*
-  static_dir: website.py
+  secure: always
+  redirect_http_response_code: 301
+  script: auto
+
+default_expiration: "1m"
