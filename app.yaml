@@ -7,6 +7,4 @@ handlers:
   static_dir: great_project/static
 
 - url: /.*
-  secure: always
-  script: auto
   static_dir: great_project/website.py
