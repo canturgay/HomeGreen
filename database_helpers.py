@@ -87,11 +87,11 @@ def init_unix_connection_engine(db_config):
     # Remember - storing secrets in plaintext is potentially unsafe. Consider using
     # something like https://cloud.google.com/secret-manager/docs/overview to help keep
     # secrets secret.
-    db_user = getenv["DB_USER"]
-    db_pass = getenv["DB_PASS"]
-    db_name = getenv["DB_NAME"]
-    db_socket_dir = getenv("DB_SOCKET_DIR", "/cloudsql")
-    cloud_sql_connection_name = getenv["CLOUD_SQL_CONNECTION_NAME"]
+    db_user = os.getenv["DB_USER"]
+    db_pass = os.getenv["DB_PASS"]
+    db_name = os.getenv["DB_NAME"]
+    db_socket_dir = os.getenv("DB_SOCKET_DIR", "/cloudsql")
+    cloud_sql_connection_name = os.getenv["CLOUD_SQL_CONNECTION_NAME"]
 
     engine = sqlalchemy.create_engine(
         # Equivalent URL:
