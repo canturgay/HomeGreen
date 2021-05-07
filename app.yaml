@@ -9,5 +9,4 @@ handlers:
 - url: /.*
   secure: always
   script: auto
-  service: homegreen
   static_dir: great_project/website.py
