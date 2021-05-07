@@ -7,4 +7,3 @@ handlers:
   static_dir: static
 
 - url: /.*
-  static_dir: website.py
