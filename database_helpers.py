@@ -1,6 +1,7 @@
 import os
 import sqlalchemy
 import pymysql
+
 # this function will connect you to the database. It will return a tuple
 # with two elements:
 #  - a "connection" object, which will be necessary to later close the database
