@@ -1,56 +1,25 @@
 import os
 import sqlalchemy
 import pymysql
-
-# this function will connect you to the database. It will return a tuple
-# with two elements:
-#  - a "connection" object, which will be necessary to later close the database
-#  - a "cursor" object, which will neccesary to run SQL queries.
-# This function is like opening a file for reading and writing.
-# this function takes one argument, a string, the path to a database file.
+from google.cloud import secretmanager
 
 
 def init_connection_engine():
     db_config = {
-        # [START cloud_sql_mysql_sqlalchemy_limit]
-        # Pool size is the maximum number of permanent connections to keep.
         "pool_size": 3,
-        # Temporarily exceeds the set pool_size if no connections are available.
         "max_overflow": 2,
-        # The total number of concurrent connections for your application will be
-        # a total of pool_size and max_overflow.
-        # [END cloud_sql_mysql_sqlalchemy_limit]
-
-        # [START cloud_sql_mysql_sqlalchemy_backoff]
-        # SQLAlchemy automatically uses delays between failed connection attempts,
-        # but provides no arguments for configuration.
-        # [END cloud_sql_mysql_sqlalchemy_backoff]
-
-        # [START cloud_sql_mysql_sqlalchemy_timeout]
-        # 'pool_timeout' is the maximum number of seconds to wait when retrieving a
-        # new connection from the pool. After the specified amount of time, an
-        # exception will be thrown.
         "pool_timeout": 30,  # 30 seconds
-        # [END cloud_sql_mysql_sqlalchemy_timeout]
-
-        # [START cloud_sql_mysql_sqlalchemy_lifetime]
-        # 'pool_recycle' is the maximum number of seconds a connection can persist.
-        # Connections that live longer than the specified amount of time will be
-        # reestablished
         "pool_recycle": 1800,  # 30 minutes
-        # [END cloud_sql_mysql_sqlalchemy_lifetime]
-
     }
+
     if os.environ.get("DB_HOST"):
         return init_tcp_connection_engine(db_config)
     else:
         return init_unix_connection_engine(db_config)
 
+
 def init_tcp_connection_engine(db_config):
-    # [START cloud_sql_mysql_sqlalchemy_create_tcp]
-    # Remember - storing secrets in plaintext is potentially unsafe. Consider using
-    # something like https://cloud.google.com/secret-manager/docs/overview to help keep
-    # secrets secret.
+
     db_user = os.getenv("DB_USER")
     db_pass = os.getenv("DB_PASS")
     db_name = os.getenv("DB_NAME")
@@ -74,7 +43,6 @@ def init_tcp_connection_engine(db_config):
         ),
         **db_config
     )
-    # [END cloud_sql_mysql_sqlalchemy_create_tcp]
 
     try:
         return engine
@@ -84,10 +52,7 @@ def init_tcp_connection_engine(db_config):
 
 
 def init_unix_connection_engine(db_config):
-# [START cloud_sql_mysql_sqlalchemy_create_socket]
-    # Remember - storing secrets in plaintext is potentially unsafe. Consider using
-    # something like https://cloud.google.com/secret-manager/docs/overview to help keep
-    # secrets secret.
+
     db_user = os.getenv["DB_USER"]
     db_pass = os.getenv["DB_PASS"]
     db_name = os.getenv["DB_NAME"]
@@ -110,7 +75,7 @@ def init_unix_connection_engine(db_config):
         ),
         **db_config
     )
-    # [END cloud_sql_mysql_sqlalchemy_create_socket]
+    
     try:
         return engine
 
@@ -123,13 +88,14 @@ def connect(message):
     global engine
     try:
         connection = engine.connect()
-    # Create tables (if they don't already exist)
+   
         result = connection.execute(message)
 
         return result
     
     except:
         engine = init_connection_engine()
+
         connection = engine.execute(message)
         
         return connection
