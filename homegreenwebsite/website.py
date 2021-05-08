@@ -29,7 +29,7 @@ def checkUser():
 
 
     try:
-        exist = connect(query)
+        #exist = connect(query)
         return addNewUser(data)
     except:
         return "User already exists"
