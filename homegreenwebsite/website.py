@@ -26,13 +26,16 @@ def checkUser():
     data = request.form["email"]
 
     query = f"SELECT EXISTS(SELECT * FROM Users WHERE email=\"{data}\");"
+    if query == data:
+        return "User exists"
 
-
-    try:
-        exist = connect(query)
-        return addNewUser(data)
-    except:
-        return "User already exists"
+    else:
+        addNewUser(data)
+    #try:
+        #exist = connect(query)
+        #return addNewUser(data)
+    #except:
+     #   return "User already exists"
 
 
 
