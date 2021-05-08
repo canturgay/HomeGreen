@@ -56,8 +56,6 @@ def init_unix_connection_engine(db_config):
     db_user = os.getenv["DB_USER"]
     db_pass = os.getenv["DB_PASS"]
     db_name = os.getenv["DB_NAME"]
-    db_socket_dir = os.getenv("DB_SOCKET_DIR", "/cloudsql")
-    cloud_sql_connection_name = os.getenv["CLOUD_SQL_CONNECTION_NAME"]
 
     engine = sqlalchemy.create_engine(
         # Equivalent URL:
@@ -67,11 +65,7 @@ def init_unix_connection_engine(db_config):
             username=db_user,  # e.g. "my-database-user"
             password=db_pass,  # e.g. "my-database-password"
             database=db_name,  # e.g. "my-database-name"
-            query={
-                "unix_socket": "{}/{}".format(
-                    db_socket_dir,  # e.g. "/cloudsql"
-                    cloud_sql_connection_name)  # i.e "<PROJECT-NAME>:<INSTANCE-REGION>:<INSTANCE-NAME>"
-            }
+            query={"unix_socket": "/cloudsql/h0m3gr33n:europe-west3:homegreenfresh"}
         ),
         **db_config
     )
