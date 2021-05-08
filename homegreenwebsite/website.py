@@ -29,7 +29,7 @@ def checkUser():
 
 
     try:
-        #exist = connect(query)
+        exist = connect(query)
         return addNewUser(data)
     except:
         return "User already exists"
@@ -38,7 +38,7 @@ def checkUser():
 
 @app.route('/api/addnewuser', methods=["POST"])
 def addNewUser(data):
-    insert = f"INSERT INTO Users (email) VALUES (\"{data}\");"
+    insert = f"INSERT INTO Users (email) VALUESgit add * (\"{data}\");"
 
     newUser = connect(insert)
 
