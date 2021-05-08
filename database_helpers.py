@@ -60,13 +60,14 @@ def init_unix_connection_engine(db_config):
     engine = sqlalchemy.create_engine(
         # Equivalent URL:
         # mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=<socket_path>/<cloud_sql_instance_name>
-        sqlalchemy.engine.url.URL(
-            drivername="mysql+pymysql",
-            username=db_user,  # e.g. "my-database-user"
-            password=db_pass,  # e.g. "my-database-password"
-            database=db_name,  # e.g. "my-database-name"
-            query={"unix_socket": "/cloudsql/h0m3gr33n:europe-west3:homegreenfresh"}
-        ),
+        mysql+pymysql://root:172839465@homegreenfresh?unix_socket=cloudsql/h0m3gr33n:europe-west3:homegreenfresh
+        #sqlalchemy.engine.url.URL(
+        #    drivername="mysql+pymysql",
+        #    username=db_user,  # e.g. "my-database-user"
+        #    password=db_pass,  # e.g. "my-database-password"
+        #    database=db_name,  # e.g. "my-database-name"
+        #    query={"unix_socket":"/cloudsql/h0m3gr33n:europe-west3:homegreenfresh"}
+        #),
         **db_config
     )
     
