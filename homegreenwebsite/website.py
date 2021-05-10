@@ -2,8 +2,8 @@ import os
 import logging
 import datetime
 
-from flask import Flask, request, Response, render_template, jsonify, redirect
-from database_helpers import connect
+from flask import Flask, request, Response, render_template
+from database_helpers import connect, count
 
 
 app = Flask(__name__)
@@ -23,25 +23,38 @@ def home():
 @app.route('/api/checkuser', methods=['POST'])
 
 def checkUser():
+    global engine
     data = request.form["email"]
 
-    query = f"SELECT EXISTS(SELECT * FROM Users WHERE email=\"{data}\");"
-    if query == data:
-        return "User exists"
+    query = f"SELECT * FROM Users WHERE email=\"{data}\";"
+    
+    exists = count(connect(query))
 
+    if exists:
+        
+       return "User exists"
+    
     else:
-        addNewUser(data)
-    #try:
-        #exist = connect(query)
-        #return addNewUser(data)
-    #except:
-     #   return "User already exists"
+        try:
+            return addNewUser(data)
 
+        except:
+            return "Error adding user"
 
 
 @app.route('/api/addnewuser', methods=["POST"])
 def addNewUser(data):
-    insert = f"INSERT INTO Users (email) VALUESgit add * (\"{data}\");"
+    if request.form.get('consentdata'):
+        consentdata = 1
+    else:
+        consentdata = 0
+
+    if request.form.get('news'):
+        news = 1
+    else:
+        news = 0
+
+    insert = f"INSERT INTO Users (email, date, notify, news) VALUES (\"{data}\", NOW(), {consentdata}, {news});"
 
     newUser = connect(insert)
 

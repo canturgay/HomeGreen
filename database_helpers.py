@@ -53,21 +53,26 @@ def init_tcp_connection_engine(db_config):
 
 def init_unix_connection_engine(db_config):
 
-    #db_user = os.getenv["DB_USER"]
-    #db_pass = os.getenv["DB_PASS"]
-    #db_name = os.getenv["DB_NAME"]
+    db_user = os.getenv["DB_USER"]
+    db_pass = os.getenv["DB_PASS"]
+    db_name = os.getenv["DB_NAME"]
+    db_socket_dir = os.getenv("DB_SOCKET_DIR", "/cloudsql")
+    cloud_sql_connection_name = os.getenv["CLOUD_SQL_CONNECTION_NAME"]
 
     engine = sqlalchemy.create_engine(
         # Equivalent URL:
         # mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=<socket_path>/<cloud_sql_instance_name>
-        'mysql+pymysql://root:172839465@homegreenfresh?unix_socket=cloudsql/h0m3gr33n:europe-west3:homegreenfresh'
-        #sqlalchemy.engine.url.URL(
-        #    drivername="mysql+pymysql",
-        #    username=db_user,  # e.g. "my-database-user"
-        #    password=db_pass,  # e.g. "my-database-password"
-        #    database=db_name,  # e.g. "my-database-name"
-        #    query={"unix_socket":"/cloudsql/h0m3gr33n:europe-west3:homegreenfresh"}
-        #),
+        sqlalchemy.engine.url.URL(
+            drivername="mysql+pymysql",
+            username=db_user,  # e.g. "my-database-user"
+            password=db_pass,  # e.g. "my-database-password"
+            database=db_name,  # e.g. "my-database-name"
+            query={
+                "unix_socket": "{}/{}".format(
+                    db_socket_dir,  # e.g. "/cloudsql"
+                    cloud_sql_connection_name)  # i.e "<PROJECT-NAME>:<INSTANCE-REGION>:<INSTANCE-NAME>"
+            }
+        ),
         **db_config
     )
     
@@ -85,12 +90,18 @@ def connect(message):
         connection = engine.connect()
    
         result = connection.execute(message)
+        
+
 
         return result
     
     except:
         engine = init_connection_engine()
 
-        connection = engine.execute(message)
+        engine.execute(message)
+         
         
-        return connection
+        return engine.execute(message)
+
+def count(result):
+    return result.rowcount
