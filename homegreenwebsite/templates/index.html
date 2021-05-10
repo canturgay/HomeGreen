@@ -3,13 +3,13 @@
 <div class="first-slate">
     <img class="showscroll" id="right-bottom" src="{{ url_for('static', filename='img/clipart-leaf-fern-15 1.png') }}">
     <img class="showscroll" id="left-side" src="{{ url_for('static', filename='img/doublefern.png') }}">
-    <h1>NO MORE DEAD PLANTS</h1>
+    <h1 class="showscroll">NO MORE DEAD PLANTS</h1>
     <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua. Nisl pretium fusce id velit ut tortor. Pharetra massa massa ultricies mi quis hendrerit dolor
         magna eget. </h2>
 </div>
 
-<div class="second-slate">
+<div id="explore" class="second-slate">
     <img class="showscroll" id="left-side" src="{{ url_for('static', filename='img/monsteragroup left.png') }}">
     <img class="showscroll" id="right-bottom" src="{{ url_for('static', filename='img/monstera group right.png') }}">
     <h1 class="showscroll">ONE APP <br> TO GROW THEM ALL</h1>
@@ -31,7 +31,7 @@
         Pellentesque habitant morbi tristique senectus et. </h3> </div>
 </div>
 
-<div class="third-slate">
+<div id="join follow" class="third-slate">
     <img class="showscroll" id="right" src="{{ url_for('static', filename='img/ferns right.png') }}">
     <img class="showscroll" id="left" src="{{ url_for('static', filename='img/ferns left.png') }}">
     <img class="showscroll" id="smallup"  src="{{ url_for('static', filename='img/smallferns up.png') }}">
@@ -40,7 +40,7 @@
     <img class="showscroll" id="bottom" src="{{ url_for('static', filename='img/roots.png') }}">
     <h2>For now leave your contact to get notified on launch <br> & <br>  follow us on Instagram.</h2>
     <h3> You will be our {{ sequence }} member if you join us now and you'll get {{ reduction  }}% reduction when we launch!!</h3>
-    <h1>SOON</h1>
+    <h1 class="showscroll">SOON</h1>
     <div class="form showscroll">
         <form form action="{{ url_for('checkUser') }}" method="post">
             <label id="email" id="emaillabel" for="email">Email:</label>
