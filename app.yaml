@@ -11,7 +11,5 @@ handlers:
   redirect_http_response_code: 301
   script: auto
 
-beta_settings:
-  cloud_sql_instances: h0m3gr33n:europe-west3:homegreenfresh
 
 default_expiration: "1m"
