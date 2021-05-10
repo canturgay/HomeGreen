@@ -1,6 +1,7 @@
 import os
 import logging
 import datetime
+from num2words import num2words
 
 from flask import Flask, request, Response, render_template
 from database_helpers import connect, count
@@ -17,13 +18,26 @@ app.config.from_pyfile("config.py")
 
 def home():
     """returns homepage"""
-    return render_template('index.html', page_title="HomeGreen", sequence="First", reduction="100")
+    query = f"SELECT * FROM Users;"
+    con = connect(query)
+    cou = int(count(con))
+    ordinal = num2words(cou, to = 'ordinal')
+
+    if cou <= 100:
+        seq = ordinal
+        sale = 100 - cou
+        return render_template('index.html', page_title="HomeGreen", sequence=seq, reduction=sale)
+    else:
+        return "Sorry, our quota for alpha members is full"
+
+        
+
+    
 
 
 @app.route('/api/checkuser', methods=['POST'])
 
 def checkUser():
-    global engine
     data = request.form["email"]
 
     query = f"SELECT * FROM Users WHERE email=\"{data}\";"

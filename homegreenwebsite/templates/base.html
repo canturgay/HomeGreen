@@ -4,7 +4,6 @@
     <title> {{ page_title }}</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='potted-plant.png') }}">
 </head>
 
@@ -26,7 +25,8 @@
         {% block content%} {% endblock %}
     </main>
     <footer>
-            <h3> <em> By Turugut URUGUAY </em></h3>
+            <h3> <em>  CT - CODE University SE Foundations Project </em></h3>
     </footer>
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
