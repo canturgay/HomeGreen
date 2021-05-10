@@ -30,7 +30,8 @@ def home():
             return render_template('index.html', page_title="HomeGreen", sequence=seq, reduction=sale)
         else:
             return "Sorry, our quota for alpha members is full"
-    except return render_template('index.html', page_title="HomeGreen", sequence="first", reduction="99")
+    except:
+         return render_template('index.html', page_title="HomeGreen", sequence="first", reduction=99)
         
 
     
@@ -48,7 +49,7 @@ def checkUser():
     try:
         if exists:
             
-        return "User exists"
+            return "User exists"
         
         else:
             try:
