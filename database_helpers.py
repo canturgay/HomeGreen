@@ -3,11 +3,12 @@ import sqlalchemy
 import pymysql
 from dotenv import load_dotenv
 
-APP_ROOT = os.path.join(os.path.dirname(__file__), '..')   # refers to application_top
+APP_ROOT = os.path.join(os.path.dirname(__file__), '..')   # refers to application_top for .env handling
 dotenv_path = os.path.join(APP_ROOT, '.env')
 load_dotenv(dotenv_path)
 
-def init_connection_engine():
+def init_connection_engine(): 
+    """db connection returns sqlalchemy engine"""
     db_config = {
         "pool_size": 3,
         "max_overflow": 2,
@@ -21,7 +22,8 @@ def init_connection_engine():
         return init_unix_connection_engine(db_config)
 
 
-def init_tcp_connection_engine(db_config):
+def init_tcp_connection_engine(db_config): 
+    """db connection for local network."""
 
     db_user = os.getenv("DB_USER")
     db_pass = os.getenv("DB_PASS")
@@ -55,6 +57,7 @@ def init_tcp_connection_engine(db_config):
 
 
 def init_unix_connection_engine(db_config):
+    """db connection try for cloudsql, couldnt make it work!!!"""
 
     db_user = os.getenv["DB_USER"]
     db_pass = os.getenv["DB_PASS"]
@@ -88,6 +91,7 @@ def init_unix_connection_engine(db_config):
 
 
 def connect(message):
+    """Connection to mysql database. returns a sqlalchemy CursorResult object"""
     global engine
     try:
         connection = engine.connect()
@@ -100,11 +104,10 @@ def connect(message):
     
     except:
         engine = init_connection_engine()
-
-        engine.execute(message)
-         
         
         return engine.execute(message)
 
 def count(result):
+    """return the number of rows in result as integer"""
+
     return result.rowcount

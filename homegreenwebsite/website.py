@@ -17,7 +17,7 @@ app.config.from_pyfile("config.py")
 @app.route('/')
 
 def home():
-    """returns homepage"""
+    """ tries to count member numbers in database and calculate reduction and returns homepage or w/ dummy values"""
     try:
         query = f"SELECT * FROM Users;"
         con = connect(query)
@@ -37,28 +37,32 @@ def home():
 
 
 @app.route('/api/checkuser', methods=['POST'])
-
 def checkUser():
+    """Checks the database for user w email as PK"""
     data = request.form["email"]
 
     query = f"SELECT * FROM Users WHERE email=\"{data}\";"
     
     exists = count(connect(query))
 
-    if exists:
+    try:
+        if exists:
+            
+        return "User exists"
         
-       return "User exists"
-    
-    else:
-        try:
-            return addNewUser(data)
+        else:
+            try:
+                return addNewUser(data)
 
-        except:
-            return "Error adding user"
+            except:
+                return "Error adding user"
+    except:
+        return "Error connecting database"
 
 
 @app.route('/api/addnewuser', methods=["POST"])
 def addNewUser(data):
+    """adds user to database w email as PK"""
     if request.form.get('consentdata'):
         consentdata = 1
     else:
