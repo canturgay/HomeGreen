@@ -18,18 +18,19 @@ app.config.from_pyfile("config.py")
 
 def home():
     """returns homepage"""
-    query = f"SELECT * FROM Users;"
-    con = connect(query)
-    cou = int(count(con))
-    ordinal = num2words(cou, to = 'ordinal')
+    try:
+        query = f"SELECT * FROM Users;"
+        con = connect(query)
+        cou = int(count(con))
+        ordinal = num2words(cou, to = 'ordinal')
 
-    if cou <= 100:
-        seq = ordinal
-        sale = 100 - cou
-        return render_template('index.html', page_title="HomeGreen", sequence=seq, reduction=sale)
-    else:
-        return "Sorry, our quota for alpha members is full"
-
+        if cou <= 100:
+            seq = ordinal
+            sale = 100 - cou
+            return render_template('index.html', page_title="HomeGreen", sequence=seq, reduction=sale)
+        else:
+            return "Sorry, our quota for alpha members is full"
+    except return render_template('index.html', page_title="HomeGreen", sequence="first", reduction="99")
         
 
     
