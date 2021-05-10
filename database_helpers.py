@@ -1,8 +1,11 @@
 import os
 import sqlalchemy
 import pymysql
-from google.cloud import secretmanager
+from dotenv import load_dotenv
 
+APP_ROOT = os.path.join(os.path.dirname(__file__), '..')   # refers to application_top
+dotenv_path = os.path.join(APP_ROOT, '.env')
+load_dotenv(dotenv_path)
 
 def init_connection_engine():
     db_config = {
